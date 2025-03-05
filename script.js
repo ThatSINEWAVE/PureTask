@@ -17,6 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
     function applyTheme(theme) {
         document.body.classList.toggle('dark-theme', theme === 'dark');
         localStorage.setItem('puretask-theme', theme);
+        updateThemeToggleIcon(theme);
+    }
+
+    // Update theme toggle icon
+    function updateThemeToggleIcon(theme) {
+        const themeToggleSvg = themeToggle.querySelector('svg');
+        themeToggleSvg.innerHTML = theme === 'dark'
+            ? `<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"></path>`
+            : `<circle cx="12" cy="12" r="5"></circle>
+               <line x1="12" y1="1" x2="12" y2="3"></line>
+               <line x1="12" y1="21" x2="12" y2="23"></line>
+               <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+               <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+               <line x1="1" y1="12" x2="3" y2="12"></line>
+               <line x1="21" y1="12" x2="23" y2="12"></line>
+               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>`;
     }
 
     // Initialize theme
@@ -85,9 +102,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span>${task.text}</span>
                 <div class="task-actions">
                     <button class="task-complete" data-index="${originalIndex}" aria-label="Toggle Task">
-                        ${task.completed ? '↩️' : '✔️'}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            ${task.completed
+                                ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>'
+                                : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line>'}
+                        </svg>
                     </button>
-                    <button class="task-delete" data-index="${originalIndex}" aria-label="Delete Task">🗑️</button>
+                    <button class="task-delete" data-index="${originalIndex}" aria-label="Delete Task">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg>
+                    </button>
                 </div>
             `;
 
@@ -118,30 +146,58 @@ document.addEventListener('DOMContentLoaded', () => {
             currentFilter = 'all';
             updateFilterButtons();
             saveTasks();
+            // Add a subtle animation
+            taskInput.classList.add('task-added-animation');
+            setTimeout(() => {
+                taskInput.classList.remove('task-added-animation');
+            }, 300);
         }
     }
 
     // Delete a task
     function deleteTask(e) {
-        const index = e.target.getAttribute('data-index');
-        tasks.splice(index, 1);
-        saveTasks();
+        const index = e.target.closest('button').getAttribute('data-index');
+        const taskItem = e.target.closest('.task-item');
+
+        // Add delete animation
+        taskItem.classList.add('task-delete-animation');
+
+        setTimeout(() => {
+            tasks.splice(index, 1);
+            saveTasks();
+        }, 300);
     }
 
-    // Toggle task completion
+    // Toggle task completion with animation
     function toggleTaskCompletion(e) {
-        const index = e.target.getAttribute('data-index');
-        tasks[index].completed = !tasks[index].completed;
-        saveTasks();
+        const index = e.target.closest('button').getAttribute('data-index');
+        const taskItem = e.target.closest('.task-item');
+
+        // Add toggle animation
+        taskItem.classList.add('task-toggle-animation');
+
+        setTimeout(() => {
+            tasks[index].completed = !tasks[index].completed;
+            saveTasks();
+            taskItem.classList.remove('task-toggle-animation');
+        }, 200);
     }
 
-    // Clear completed tasks
+    // Clear completed tasks with confirmation
     function clearCompletedTasks() {
-        tasks = tasks.filter(task => !task.completed);
-        saveTasks();
+        const completedTasksCount = tasks.filter(task => task.completed).length;
+
+        if (completedTasksCount > 0) {
+            const confirmClear = confirm(`Are you sure you want to clear ${completedTasksCount} completed task${completedTasksCount !== 1 ? 's' : ''}?`);
+
+            if (confirmClear) {
+                tasks = tasks.filter(task => !task.completed);
+                saveTasks();
+            }
+        }
     }
 
-    // Export tasks
+    // Export tasks with custom filename
     function exportTasks() {
         const tasksJson = JSON.stringify(tasks, null, 2);
         const blob = new Blob([tasksJson], {
@@ -149,9 +205,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         const url = URL.createObjectURL(blob);
 
+        const date = new Date();
+        const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
         const a = document.createElement('a');
         a.href = url;
-        a.download = `PureTask_Export_${new Date().toISOString().split('T')[0]}.json`;
+        a.download = `PureTask_Export_${formattedDate}_${tasks.length}tasks.json`;
         a.click();
         URL.revokeObjectURL(url);
     }
