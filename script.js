@@ -60,10 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
         taskList.innerHTML = '';
 
         const filteredTasks = tasks.filter(task => {
-            switch(currentFilter) {
-                case 'active': return !task.completed;
-                case 'completed': return task.completed;
-                default: return true;
+            switch (currentFilter) {
+                case 'active':
+                    return !task.completed;
+                case 'completed':
+                    return task.completed;
+                default:
+                    return true;
             }
         });
 
@@ -107,7 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function addTask() {
         const taskText = taskInput.value.trim();
         if (taskText) {
-            tasks.push({ text: taskText, completed: false });
+            tasks.push({
+                text: taskText,
+                completed: false
+            });
             taskInput.value = '';
             currentFilter = 'all';
             updateFilterButtons();
@@ -138,7 +144,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Export tasks
     function exportTasks() {
         const tasksJson = JSON.stringify(tasks, null, 2);
-        const blob = new Blob([tasksJson], { type: 'application/json' });
+        const blob = new Blob([tasksJson], {
+            type: 'application/json'
+        });
         const url = URL.createObjectURL(blob);
 
         const a = document.createElement('a');

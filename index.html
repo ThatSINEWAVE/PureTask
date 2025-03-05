@@ -1,87 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PureTask - Minimalist Productivity App</title>
+    <title>PureTask</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-<body>
+  </head>
+  <body>
     <div class="app-container">
-        <header>
-            <div class="header-content">
-                <h1>PureTask</h1>
-                <p class="app-description">Simplify. Focus. Achieve.</p>
-            </div>
-            <div class="theme-toggle">
-                <button id="themeToggle" aria-label="Toggle Theme">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </header>
-
-        <main>
-            <div class="task-input-wrapper">
-                <input
-                    type="text"
-                    id="taskInput"
-                    placeholder="What's your next task?"
-                    maxlength="150"
-                >
-                <button id="addTask" aria-label="Add Task">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                </button>
-            </div>
-
-            <div class="task-list-container">
-                <div class="task-filter">
-                    <button id="filterAll" class="active">All</button>
-                    <button id="filterActive">Active</button>
-                    <button id="filterCompleted">Completed</button>
-                </div>
-
-                <ul id="taskList" aria-live="polite"></ul>
-
-                <div id="emptyState" class="empty-state">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
-                        <path d="M8 12l4 4 4-4"></path>
-                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                    </svg>
-                    <p>No tasks yet. Start by adding a task!</p>
-                </div>
-            </div>
-
-            <div class="task-stats">
-                <span id="taskCount">0 tasks</span>
-                <div class="task-actions">
-                    <button id="clearCompleted" class="clear-completed-btn">Clear Completed</button>
-                    <button id="exportTasks" class="export-btn">Export</button>
-                </div>
-            </div>
-        </main>
-
-        <footer>
-            <p>© 2024 PureTask. All rights reserved.</p>
-        </footer>
+      <header>
+        <div class="header-content">
+          <h1>PureTask</h1>
+          <p class="app-description">Simplify. Focus. Achieve.</p>
+        </div>
+        <div class="theme-toggle">
+          <button id="themeToggle" aria-label="Toggle Theme">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+        </div>
+      </header>
+      <main>
+        <div class="task-input-wrapper">
+          <input type="text" id="taskInput" placeholder="What's your next task?" maxlength="150">
+          <button id="addTask" aria-label="Add Task">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="task-list-container">
+          <div class="task-filter">
+            <button id="filterAll" class="active">All</button>
+            <button id="filterActive">Active</button>
+            <button id="filterCompleted">Completed</button>
+          </div>
+          <ul id="taskList" aria-live="polite"></ul>
+          <div id="emptyState" class="empty-state">
+            <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+              <path d="M8 12l4 4 4-4"></path>
+              <line x1="12" y1="8" x2="12" y2="16"></line>
+            </svg>
+            <p>No tasks yet. Start by adding a task!</p>
+          </div>
+        </div>
+        <div class="task-stats">
+          <span id="taskCount">0 tasks</span>
+          <div class="task-actions">
+            <button id="clearCompleted" class="clear-completed-btn">Clear Completed</button>
+            <button id="exportTasks" class="export-btn">Export</button>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <p>© 2025 PureTask. Made by ThatSINEWAVE</p>
+      </footer>
     </div>
-
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
