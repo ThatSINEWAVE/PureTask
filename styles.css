@@ -50,7 +50,7 @@ body.dark-theme {
 
 .app-container {
 	width: 100%;
-	max-width: 500px;
+	max-width: 600px;
 	background-color: var(--bg-secondary-light);
 	border-radius: 16px;
 	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 0 10px 20px rgba(0, 0, 0, 0.05);
@@ -375,4 +375,116 @@ body.dark-theme #taskList::-webkit-scrollbar-track {
 
 body.dark-theme #taskList::-webkit-scrollbar-thumb {
 	background-color: var(--accent-primary-dark);
+}
+
+/* Add these animations to the existing CSS */
+@keyframes taskAddAnimation {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes taskDeleteAnimation {
+    0% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(-100%); opacity: 0; }
+}
+
+.task-item {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.task-input-wrapper #taskInput.task-added-animation {
+    animation: taskAddAnimation 0.3s ease-out;
+}
+
+.task-item.task-delete-animation {
+    animation: taskDeleteAnimation 0.3s ease-out;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.task-item.task-toggle-animation {
+    animation: taskAddAnimation 0.2s ease-in-out;
+}
+
+/* Enhanced button styles */
+.task-complete,
+.task-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    opacity: 0.6;
+}
+
+.task-complete:hover,
+.task-delete:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.task-complete svg {
+    stroke: var(--success-color);
+}
+
+.task-delete svg {
+    stroke: var(--delete-color);
+}
+
+/* Tooltip-like hover effect for filter buttons */
+.task-filter button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.task-filter button svg {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+}
+
+.task-filter button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.task-filter button:hover svg {
+    opacity: 1;
+}
+
+/* Subtle focus states */
+#taskInput:focus,
+.task-filter button:focus,
+#addTask:focus,
+.task-complete:focus,
+.task-delete:focus {
+    outline: 2px solid var(--accent-primary-light);
+    outline-offset: 2px;
+}
+
+body.dark-theme #taskInput:focus,
+body.dark-theme .task-filter button:focus,
+body.dark-theme #addTask:focus,
+body.dark-theme .task-complete:focus,
+body.dark-theme .task-delete:focus {
+    outline-color: var(--accent-primary-dark);
+}
+
+/* Accessibility improvements */
+button,
+input {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Improve task list scrollbar */
+#taskList {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-primary-light) var(--bg-secondary-light);
+}
+
+body.dark-theme #taskList {
+    scrollbar-color: var(--accent-primary-dark) var(--bg-secondary-dark);
 }
