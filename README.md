@@ -2,7 +2,7 @@
 
 # [PureTask](https://thatsinewave.github.io/PureTask)
 
-
+![PureTask](https://raw.githubusercontent.com/ThatSINEWAVE/PureTask/refs/heads/main/.github/SCREENSHOTS/PureTask.png)
 
 PureTask is a minimalist task management web app designed to help users organize and track their daily tasks efficiently. It features a clean UI, dark mode support, local storage for persistence, task filtering, and task export functionality.
 
@@ -74,7 +74,3 @@ Contributions are welcome! If you want to contribute, feel free to fork the repo
 ## License
 
 This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
-
----
-Made with ❤️ by [ThatSINEWAVE](https://github.com/ThatSINEWAVE)
-
