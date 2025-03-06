@@ -243,28 +243,80 @@ body.dark-theme .task-item.completed {
 
 .task-actions {
   display: flex;
-  gap: 0.75rem;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .task-delete,
 .task-complete {
+  position: relative;
   background: none;
   border: none;
   cursor: pointer;
-  opacity: 0.6;
+  opacity: 0.7;
   transition: transform 0.2s ease, opacity 0.2s ease;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .task-delete:hover {
   color: var(--delete-color);
   opacity: 1;
-  transform: scale(1.1);
 }
 
 .task-complete:hover {
   color: var(--success-color);
   opacity: 1;
-  transform: scale(1.1);
+}
+
+.task-complete {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-complete svg {
+  stroke: var(--text-secondary-light);
+  transition: stroke 0.2s ease, fill 0.2s ease;
+}
+
+body.dark-theme .task-complete svg {
+  stroke: var(--text-secondary-dark);
+}
+
+.task-complete svg path {
+  stroke: var(--success-color);
+  stroke-width: 2;
+}
+
+.task-item.completed .task-complete svg circle {
+  stroke: var(--success-color);
+}
+
+.task-item.completed .task-complete {
+  opacity: 1;
+}
+
+@keyframes checkmarkAppear {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.task-toggle-animation .task-complete svg path,
+.task-toggle-animation .task-complete svg circle {
+  animation: checkmarkAppear 0.3s ease forwards;
 }
 
 .task-stats {
@@ -276,19 +328,98 @@ body.dark-theme .task-item.completed {
   border-top: 1px solid var(--border-color-light);
 }
 
+.task-item .task-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0;
+}
+
+.task-item .task-complete,
+.task-item .task-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  height: 24px;
+  width: 24px;
+}
+
+.task-item .task-complete svg,
+.task-item .task-delete svg {
+  display: block;
+  margin: auto;
+}
+
 body.dark-theme .task-stats {
   background-color: var(--bg-tertiary-dark);
   border-top-color: var(--border-color-dark);
 }
 
+.task-edit {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-edit:hover {
+  color: var(--accent-primary-light);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+body.dark-theme .task-edit:hover {
+  color: var(--accent-primary-dark);
+}
+
+.task-edit svg {
+  stroke: var(--text-secondary-light);
+  transition: stroke 0.2s ease;
+}
+
+body.dark-theme .task-edit svg {
+  stroke: var(--text-secondary-dark);
+}
+
+.task-edit:hover svg {
+  stroke: var(--accent-primary-light);
+}
+
+body.dark-theme .task-edit:hover svg {
+  stroke: var(--accent-primary-dark);
+}
+
 .clear-completed-btn,
 .export-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
   background: none;
   border: 1px solid var(--border-color-light);
   color: var(--text-secondary-light);
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.clear-completed-btn span,
+.export-btn span {
+  display: inline-block;
+  line-height: 1;
+  position: relative;
+  top: -2px;
 }
 
 body.dark-theme .clear-completed-btn,
@@ -299,14 +430,26 @@ body.dark-theme .export-btn {
 
 .clear-completed-btn:hover,
 .export-btn:hover {
-  background-color: var(--bg-secondary-light);
-  color: var(--text-primary-light);
+  background-color: var(--accent-primary-light);
+  border-color: var(--accent-primary-light);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 body.dark-theme .clear-completed-btn:hover,
 body.dark-theme .export-btn:hover {
-  background-color: var(--bg-secondary-dark);
-  color: var(--text-primary-dark);
+  background-color: var(--accent-primary-dark);
+  border-color: var(--accent-primary-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.clear-completed-btn svg,
+.export-btn svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  position: relative;
 }
 
 .empty-state {
@@ -351,6 +494,15 @@ body.dark-theme footer {
   }
 
   .task-filter button {
+    width: 100%;
+  }
+  .task-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .clear-completed-btn,
+  .export-btn {
     width: 100%;
   }
 }
