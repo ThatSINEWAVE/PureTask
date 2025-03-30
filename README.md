@@ -71,6 +71,10 @@ PureTask/
 
 Contributions are welcome! If you want to contribute, feel free to fork the repository, make your changes, and submit a pull request.
 
+### Contributors
+
+- [Jasurlive](https://github.com/jasurlive) - Added import button.
+
 ## License
 
 This project is licensed under the GPL-3.0 License - see the [LICENSE](LICENSE) file for details.
