@@ -310,8 +310,13 @@ body.dark-theme .task-complete svg {
 }
 
 @keyframes checkmarkAppear {
-  0% { stroke-dashoffset: 24; }
-  100% { stroke-dashoffset: 0; }
+  0% {
+    stroke-dashoffset: 24;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
 }
 
 .task-toggle-animation .task-complete svg path,
@@ -399,7 +404,8 @@ body.dark-theme .task-edit:hover svg {
 }
 
 .clear-completed-btn,
-.export-btn {
+.export-btn,
+.upload-label {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -414,22 +420,16 @@ body.dark-theme .task-edit:hover svg {
   transition: all 0.2s ease;
 }
 
-.clear-completed-btn span,
-.export-btn span {
-  display: inline-block;
-  line-height: 1;
-  position: relative;
-  top: -2px;
-}
-
 body.dark-theme .clear-completed-btn,
-body.dark-theme .export-btn {
+body.dark-theme .export-btn,
+body.dark-theme .upload-label {
   border-color: var(--border-color-dark);
   color: var(--text-secondary-dark);
 }
 
 .clear-completed-btn:hover,
-.export-btn:hover {
+.export-btn:hover,
+.upload-label:hover {
   background-color: var(--accent-primary-light);
   border-color: var(--accent-primary-light);
   color: white;
@@ -438,7 +438,8 @@ body.dark-theme .export-btn {
 }
 
 body.dark-theme .clear-completed-btn:hover,
-body.dark-theme .export-btn:hover {
+body.dark-theme .export-btn:hover,
+body.dark-theme .upload-label:hover {
   background-color: var(--accent-primary-dark);
   border-color: var(--accent-primary-dark);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -459,7 +460,7 @@ body.dark-theme .export-btn:hover {
 }
 
 body.dark-theme .empty-state {
-  color: var(--text-secondary-dark);
+  color: var (--text-secondary-dark);
 }
 
 .empty-state svg {
@@ -496,6 +497,7 @@ body.dark-theme footer {
   .task-filter button {
     width: 100%;
   }
+
   .task-actions {
     flex-direction: column;
     width: 100%;
@@ -610,19 +612,41 @@ body.dark-theme .stat-label {
 
 /* Animations */
 @keyframes taskAddAnimation {
-  0% { transform: scale(0.95); opacity: 0.7; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.95);
+    opacity: 0.7;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes taskDeleteAnimation {
-  0% { transform: translateX(0); opacity: 1; }
-  100% { transform: translateX(-100%); opacity: 0; }
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
 }
 
 @keyframes progress-pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.8; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 .task-input-wrapper #taskInput.task-added-animation {
@@ -635,4 +659,43 @@ body.dark-theme .stat-label {
 
 .task-progress-bar:hover .progress-fill {
   animation: progress-pulse 1.5s infinite;
+}
+
+/* Upload Button Styles */
+.upload-btn {
+  display: none;
+}
+
+.upload-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: none;
+  border: 1px solid var(--border-color-light);
+  color: var(--text-secondary-light);
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+body.dark-theme .upload-label {
+  border-color: var(--border-color-dark);
+  color: var(--text-secondary-dark);
+}
+
+.upload-label:hover {
+  background-color: var(--accent-primary-light);
+  border-color: var(--accent-primary-light);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .upload-label:hover {
+  background-color: var(--accent-primary-dark);
+  border-color: var(--accent-primary-dark);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
